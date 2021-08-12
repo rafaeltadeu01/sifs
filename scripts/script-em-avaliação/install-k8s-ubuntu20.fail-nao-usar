@@ -1,0 +1,72 @@
+#!/bin/bash
+
+# Variaveis do ambientes
+sethostname="k8s-m1"
+setendip="192.168.0.99"
+
+## Instalação do Docker no Ubuntu 18.04
+## Entre como sudo su -
+apt update && apt upgrade -y && \
+apt install docker.io -y && \
+systemctl start docker && \
+systemctl enable docker
+
+## Atualizar as configurações de Rede
+cat >>/etc/sysctl.d/kubernetes.conf<<EOF
+net.bridge.bridge-nf-call-ip6tables = 1
+net.bridge.bridge-nf-call-iptables = 1
+EOF
+sysctl --system
+
+## Configurar os hostnames e ajustar o IP do host
+hostnamectl set-hostname $sethostname && \
+sed -i s/127.0.1.1/$setendip/g /etc/hosts && \
+sed -i s/$HOSTNAME/$sethostname/g /etc/hosts
+
+## Desbilitar a Memory Swap
+ufw disable && \
+swapoff -a; sed -i '/swap/d' /etc/fstab
+
+## Instalação do Kuberneres
+curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add - && \
+apt-add-repository "deb http://apt.kubernetes.io/ kubernetes-xenial main" && \
+apt install kubeadm kubelet kubectl -y && \
+apt-mark hold kubeadm kubelet kubectl && \
+kubeadm version
+
+#-----------------------------------------------------------------------------------------------
+## Procedimentos da maquina Master
+
+#kubeadm init --apiserver-advertise-address=192.168.0.110 --pod-network-cidr=172.20.0.0/16  --ignore-preflight-errors=all && \
+#kubeadm init --control-plane-endpoint k8s-m1:6443 --pod-network-cidr=172.20.0.0/16
+
+[FAIL: Não consegue conecta no cluste para subir o serviço do kubectl]
+kubeadm init --pod-network-cidr=172.20.0.0/16
+
+mkdir -p $HOME/.kube && \
+cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && \
+chown $(id -u):$(id -g) $HOME/.kube/config
+
+ 
+## Pegar a cheve de configuração para adicionar os nodes 
+kubeadm token create --print-join-command
+
+
+## Configurar a Rede dos pods
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/k8s-manifests/kube-flannel-rbac.yml
+kubectl get pods --all-namespaces
+
+#-----------------------------------------------------------------------------------------------
+## Checando os Nodes
+sudo kubectl get nodes
+
+## Addon de comunicação entre os pods
+sudo kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+## Ativando o auto completar do kubernetes
+source <(kubectl completion bash)
+
+## Testes de Deploy dos Pods
+kubectl run nginx --image nginx --replicas 10
+kubectl get pods -o wide

@@ -79,6 +79,36 @@ selectinstall(){
         esac
 }
 
+selectinstall2(){
+    cabecario
+    echo "Voce deseja instalar o $software?"
+    echo "(S)im ou (N)ão"
+    read -p "DIGITE SUA OPÇÃO:" escolha
+    case $escolha in
+        s)
+            echo "Verificando e preparando a instalação do $software"
+            sudo docker ps |grep $software
+            check=`sudo echo $?`
+            if [ $check = 0 ];then
+                echo "o serviço do $software já encontra-se instalado"
+                sleep 3
+                installsoft
+            else
+                echo "Instalado o serviço do $software:"
+                sudo chmod +x $pathdir/scripts/install-docker-$software.sh
+                sudo $pathdir/scripts/install-docker-$software.sh
+            fi
+        ;;
+        n)
+            installsoft
+        ;;
+        *)
+            cabecario
+            echo "Esconha uma das opções S para sim N para não:"
+        ;;
+        esac
+}
+
 selectuninstall(){
     cabecario
     echo "Voce deseja Desinstalar o $software?"
@@ -152,7 +182,7 @@ installsoft(){
 cabecario
 echo "Escolha um software para ser instalado:
 1 - portainer                   6 - NetBox
-2 - npm (NGINX Proxy Manager)   7 - ...desenvolvimento
+2 - npm (NGINX Proxy Manager)   7 - Rancher
 3 - GLPI                        8 - ...desenvolvimento
 4 - OCSInventory                9 - ...desenvolvimento
 5 - sysPass                     0 - VOLTAR"
@@ -165,33 +195,7 @@ case $escolha in
 ;;
 1)
     software="portainer"
-    cabecario
-    echo "Voce deseja instalar o $software?"
-    echo "(S)im ou (N)ão"
-    read -p "DIGITE SUA OPÇÃO:" escolha
-    case $escolha in
-        s)
-            echo "Verificando e preparando a instalação do $software"
-            sudo docker ps |grep $software
-            check=`sudo echo $?`
-            if [ $check = 0 ];then
-                echo "o serviço do Portainer já encontra-se instalado"
-                sleep 3
-                installsoft
-            else
-                echo "Instalado o serviço do Portainer:"
-                sudo chmod +x $pathdir/scripts/install-docker-portainer.sh
-                sudo $pathdir/scripts/install-docker-portainer.sh
-            fi
-        ;;
-        n)
-            installsoft
-        ;;
-        *)
-            cabecario
-            echo "Esconha uma das opções S para sim N para não:"
-        ;;
-        esac
+    selectinstall2
 ;;
 2)
     software="npm"
@@ -214,7 +218,9 @@ case $escolha in
     selectinstall  
 ;;
 7)
-  installsoft ;;
+    software="rancher"
+    selectinstall2
+;;
 8)
   installsoft ;;
 9)

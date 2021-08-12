@@ -44,3 +44,6 @@ Necessario realizar o cadastro da aplicação, usuario administrador e o banco d
 https://"endereçodeip":8060
 USER: admin  
 PASS: admin
+
+## Pós instalação do Rancher
+Acesso ao sistema: https://"endereçodeip":8070
