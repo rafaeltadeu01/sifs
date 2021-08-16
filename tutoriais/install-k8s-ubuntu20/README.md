@@ -8,7 +8,7 @@ sudo apt update && \
 sudo apt install kubelet kubeadm kubectl -y && \
 sudo apt-mark hold kubelet kubeadm kubectl
 
-## Checar a versões instaladda (TESTE)
+#### Checar a versões instaladda (TESTE)
 kubectl version --client && kubeadm version
 
 sudo swapoff -a; sudo sed -i '/swap/d' /etc/fstab && \
@@ -99,6 +99,7 @@ lsmod | grep br_netfilter
 br_netfilter           22256  0 
 bridge                151336  2 br_netfilter,ebtable_broute
 
+exit
 sudo systemctl enable kubelet
 
 ## Inicializando o Cluster
@@ -137,3 +138,8 @@ kubectl get nodes -o wide
 kubeadm join k8s-m1:6443 --token w6334j.11ml5t18jh1jx1r6 \
         --discovery-token-ca-cert-hash sha256:e96e5ff5820f31f56c74627b6e30f4a1b3c0462ec5bbcf29f84e52505b4b51d8
 #################### Saida do comando ##################################
+
+## Instalação do HELM
+curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+sudo chmod +x get_helm.sh
+./get_helm.sh
