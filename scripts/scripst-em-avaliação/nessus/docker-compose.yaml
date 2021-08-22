@@ -1,0 +1,16 @@
+version: '3.1'
+
+services:
+
+  nessus:
+    image: tenableofficial/nessus
+    restart: always
+    container_name: nessus
+    environment:
+      USERNAME: admin
+      PASSWORD: admin
+      LINKING_KEY: <key>
+      MANAGER_HOST: 192.168.0.99
+      MANAGER_PORT: 443
+    ports:
+      - 8834:8834

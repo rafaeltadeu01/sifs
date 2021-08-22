@@ -19,7 +19,7 @@ Após fazer o download do projeto para o seu servidor ubuntu execute os comandos
 
 O assistente oferece um conjuntos de deploys pré-configurado para auxiliar a instalação de um dos softwares preveamente cadastrado, este assistente foi desenvolvido para ser execultado na distribuição do "Linux Ubuntu 20.04 Server" e caso está distribuição não tiver instalado o docker e docker-compose você pode instala-los utilizando a opção 0 da primeira janela do assistente.
 Video para auxilio: https://youtu.be/aKZ8pFAETTI
-<br><br>
+<br>
 
 ## Abaixo as configurações do pós deploy da aplicação instalada
 <br>
@@ -73,3 +73,72 @@ PASS: admin<br>
 
 ## Pós instalação do Rancher
 Acesso ao sistema: https://"endereçodeip":8070
+
+# Sistemas em processo de homologação
+## Pós instalação do Nagios
+https://"endereçodeip":8110
+USER: nagiosadmin  
+PASS: nagios<br>
+
+## Pós instalação do jira 
+https://"endereçodeip"
+USER: nagiosadmin  
+PASS: nagios<br>
+
+## Pós Intalação Grafana
+https://"endereçodeip":3000
+USER: admin  
+PASS: admin<br>
+
+## Pós Intalação Duplicati
+https://"endereçodeip":8200<br>
+
+## Pós Intalação Jenkins
+https://"endereçodeip":8083
+USER: admin  
+PASS: dentro de: /var/jenkins_home/secrets/initialAdminPassword<br>
+
+## Pós Intalação OMNIDB
+https://"endereçodeip":8084
+USER: admin  
+PASS: admin<br>
+
+## Pós Intalação Nessus
+https://"endereçodeip":8834
+USER: admin  
+PASS: admin<br>
+
+## Pós instalação do Odoo
+https//"endereçodeip":8069
+Necessario configurar a database inicial<br>
+
+## Pós instalação do Guacamole
+https//"endereçodeip":8443
+USER: guacadmin  
+PASS: guacadmin<br>
+
+## Pós instalação do Wordpress
+https//"endereçodeip":8220
+Necessario configurar a database inicial<br>
+
+# Instalações em processos de ajustes
+## Pós instalação do Graylog
+https://"endereçodeip":9010
+USER: admin  
+PASS: admin<br>
+documentação oficial:
+https://docs.graylog.org/en/4.0/pages/installation/docker.html<br>
+
+## Pós instalação do Gitlab
+https://"endereçodeip":****
+USER: admin  
+PASS: admin<br>
+Documentação Oficial
+https://docs.gitlab.com/ee/install/docker.html<br>
+
+## Pós instalação do sonarqube
+https://"endereçodeip":9020
+USER: admin  
+PASS: admin<br>
+Documentação deste projeto
+https://github.com/SonarSource/docker-sonarqube<br>

@@ -1,0 +1,14 @@
+ version: '3.7'
+ services: 
+   omnidb:
+     container_name: omnidb
+     image: taivokasper/omnidb
+     privileged: true
+     user: root
+     volumes:
+     - $PWD/omnidb_data:/etc/omnidb:Z 
+     environment:
+     - TZ=America/Sao_Paulo
+     ports: 
+      - "25482:25482" 
+      - "8084:8080" 
