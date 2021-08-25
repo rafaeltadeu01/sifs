@@ -121,6 +121,12 @@ PASS: guacadmin<br>
 https//"endereçodeip":8220
 Necessario configurar a database inicial<br>
 
+## Pós instalação do minio
+https//"endereçodeip":9000,
+USER: minio
+PASS: minio123<br>
+Necessario configurar a database inicial<br>
+
 # Instalações em processos de ajustes
 ## Pós instalação do Graylog
 https://"endereçodeip":9010
