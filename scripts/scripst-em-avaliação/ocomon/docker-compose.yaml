@@ -1,0 +1,8 @@
+version: '3.5'
+
+services:
+  ocomon:
+    image: flaviorib/ocomon_demo-3.3:3.3
+    container_name: ocomon
+    ports:
+      - 8000:80
