@@ -1,0 +1,6 @@
+sudo apt update && sudo apt upgrade -y
+sudo apt install libmodule-install-perl dmidecode libxml-simple-perl libcompress-zlib-perl libnet-ip-perl libwww-perl libdigest-md5-perl libdata-uuid-perl -y
+sudo apt install ocsinventory-agent -y
+
+## Força a comunicação do sistema
+sudo ocsinventory-agent --server http://192.168.0.110:8040/ocsinventory
