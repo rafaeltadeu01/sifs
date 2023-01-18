@@ -148,3 +148,7 @@ USER: admin
 PASS: admin<br>
 Documentação deste projeto
 https://github.com/SonarSource/docker-sonarqube<br>
+
+## Zabbix Server Standalone no Ubuntu 20.04
+executar o arquivo abaixo:
+./script/zabbix_standalone/install.zabbix.sh
