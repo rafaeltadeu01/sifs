@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  db:
+    image: mariadb:10.8
+    restart: always
+    environment:
+      MARIADB_USER: admin
+      MARIADB_PASSWORD: DBp@$SAdm1n
+      MARIADB_ROOT_PASSWORD: DbS3rV
+    ports:
+      - 3306:3306
+    volumes:
+      - /var/lib/mysql
