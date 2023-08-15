@@ -1,0 +1,14 @@
+version: "3"
+services:
+  guacamole:
+    image: oznu/guacamole
+    container_name: guacamole
+    volumes:
+      - postgres:/config
+    ports:
+      - 8080:8080
+volumes:
+  postgres:
+    driver: local
+
+## The default username is guacadmin with password guacadmin.
